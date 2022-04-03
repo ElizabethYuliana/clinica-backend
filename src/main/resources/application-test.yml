@@ -1,0 +1,32 @@
+#Conectar a ala d
+server:
+  port: 8090
+spring:
+  #  Conectarnos Postgres
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:clinica_db
+    username: yorsh
+    password: 1234
+  h2:
+    console:
+      enabled: true
+  jpa:
+    properties:
+      hibernate:
+        # El dialecto SQL hace que Hibernate genere un mejor SQL para la base de datos elegida.
+        dialect: org.hibernate.dialect.H2Dialect
+        format_sql: true
+    hibernate:
+      # DDL - CREATE:  Crea todas las entidades, si existe data lo elimina
+      # DDL - CREATE-DROP: Crea todas las entidades, y al finalizar la ejecucion las eliminara(Test)
+      # DDL - UPDATE: Actualiza los campos de la tabla (no las elimina)
+      # DDL - VALIDATE: Valida la clase con las tablas (campos, primary key, etc), si no es igual da error.
+      # DDL - NONE: Ninguna accion.
+      ddl-auto: none
+    show-sql: true
+  banner:
+    location: /load/banner.txt\
+
+mensaje:
+  personalizado: Hola soy yorsh

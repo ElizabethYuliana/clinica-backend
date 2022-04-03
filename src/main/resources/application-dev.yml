@@ -1,0 +1,57 @@
+#Conectar a ala d
+server:
+  port: 8090
+  servlet:
+    context-path: /clinica-backend
+  error:
+    include-stacktrace: always
+    include-message: always
+spring:
+  #Configuracion para swagger a partir de la version 3.0
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  #  Conectarnos Postgres
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://52.249.183.124:5432/clinica_db
+    username: postgres
+    password: training2022
+    hikari:
+      minimumIdle: 2
+      maximumPoolSize: 10
+      idleTimeout: 120000
+      connectionTimeout: 300000
+      leakDetectionThreshold: 300000
+  jpa:
+    properties:
+      hibernate:
+        # El dialecto SQL hace que Hibernate genere un mejor SQL para la base de datos elegida.
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      # DDL - CREATE:  Crea todas las entidades, si existe data lo elimina
+      # DDL - CREATE-DROP: Crea todas las entidades, y al finalizar la ejecucion las eliminara(Test)
+      # DDL - UPDATE: Actualiza los campos de la tabla (no las elimina)
+      # DDL - VALIDATE: Valida la clase con las tablas (campos, primary key, etc), si no es igual da error.
+      # DDL - NONE: Ninguna accion.
+      ddl-auto: none
+    show-sql: true
+  banner:
+    location: /load/banner.txt\
+
+clinica-swagger:
+  controller:
+    find-by-id:
+      descripcion: Retorna un solo paciente
+      notas: |
+        # Respuestas al consultar un paciente
+        Algunas veces ocurrira un error al consultar, por favor considere lo siguiente
+
+        ##  Paciente ID: Un valor que existe ejm: 1
+        200 (OK) - Retornar al paciente registrado
+
+        ## Paciente ID: Cualquier valor que no exista ejm: (999999999999)
+        404 (NOT-FOUND) - Nos se encuentra al paciente
+
+        ## Paciente ID: Cuando se ingresa un 'Text'
+        400 (BAD REQUEST) - Mala peticion, debe ingresar un numero
