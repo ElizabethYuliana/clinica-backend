@@ -58,6 +58,16 @@ public class ConsultaServiceImpl extends BaseService implements ConsultaService 
         return Constantes.MESSAGE_ELIMINADO_ERROR.concat(id.toString());
     }
 
+    @Override
+    public List<Consulta> consultaNativa() {
+        return consultaRepository.findAll();
+    }
+
+    @Override
+    public void guardar(Consulta consulta) {
+        consultaRepository.save(consulta);
+    }
+
     private Consulta findByIdIsActive(Integer id) {
         Optional<Consulta> optional = consultaRepository.findByIdConsultaAndAndEstadoIsTrue(id);
         return (optional.isPresent()) ? optional.get() : null;

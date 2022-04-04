@@ -67,12 +67,14 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ResponseStatus(HttpStatus.CONFLICT)
     @ExceptionHandler(DataAccessException.class)
-    public ResponseEntity<BaseErrorResponse> conflict(SQLException ex) {
+    public ResponseEntity<BaseErrorResponse> conflict(DataAccessException ex) {
+        List<String> detalles = new ArrayList<>();
         BaseErrorResponse baseExceptionResponse = new BaseErrorResponse();
         baseExceptionResponse.setCodigoEstado(HttpStatus.CONFLICT.value());
         baseExceptionResponse.setMensajeUsuario("Error de base de datos");
-        baseExceptionResponse.setMensajeTecnico(ex.getLocalizedMessage());
-        baseExceptionResponse.setDetalles(null);
+        baseExceptionResponse.setMensajeTecnico(ex.getMostSpecificCause().getLocalizedMessage());
+        detalles.add(ex.getCause().toString());
+        baseExceptionResponse.setDetalles(detalles);
         return new ResponseEntity<>(baseExceptionResponse, HttpStatus.CONFLICT);
     }
 

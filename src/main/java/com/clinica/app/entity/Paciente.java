@@ -11,6 +11,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Getter
 @Setter
@@ -31,32 +32,35 @@ public class Paciente extends AuditEntity {
     @Column(name = "id_paciente")
     public Integer idPaciente;
 
-    @Column(name = "nombre")
+    @Column(name = "nombre", nullable = false, length = 100)
     public String nombre;
 
     // @NotNull
-    @Column(name = "edad")
+    @Column(name = "edad", nullable = false)
     public Integer edad;
 
-    @Column(name = "apellido_paterno")
+    @Column(name = "apellido_paterno", nullable = false, length = 50)
     public String apellidoPaterno;
 
-    @Column(name = "apellido_materno")
+    @Column(name = "apellido_materno", nullable = false, length = 50)
     public String apellidoMaterno;
 
-    @Column(name = "celular")
+    @Column(name = "celular", nullable = false, length = 9)
     public String celular;
 
-    @Column(name = "dni")
+    @Column(name = "dni", nullable = false, length = 8, unique = true)
     public String dni;
 
     @Column(name = "direccion")
     public String direccion;
 
-    @Column(name = "email")
+    @Column(name = "email", length = 100)
     public String email;
 
     @Column(name = "estado")
     private Boolean estado;
+//
+    @OneToMany( fetch = FetchType.LAZY,  mappedBy = "paciente", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Consulta> listaConsulta;
 
 }

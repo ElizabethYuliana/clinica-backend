@@ -1,5 +1,6 @@
 package com.clinica.app.controller;
 
+import com.clinica.app.entity.Paciente;
 import com.clinica.app.service.PacienteService;
 import com.clinica.dto.core.exception.BaseResponse;
 import com.clinica.dto.paciente.PacienteRequest;
@@ -61,6 +62,11 @@ public class PacienteController {
     @GetMapping("/find-custom/{id}")
     public  BaseResponse<PacienteResponse> findCustom(@PathVariable(name = "id") Integer id) {
         return pacienteService.findCustom(id);
+    }
+
+    @GetMapping("/lista-nativa")
+    public List<Paciente> listaNativa() {
+        return pacienteService.listaNativa();
     }
 
 }

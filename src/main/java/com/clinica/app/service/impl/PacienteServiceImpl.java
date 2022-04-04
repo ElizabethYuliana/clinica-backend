@@ -81,6 +81,11 @@ public class PacienteServiceImpl extends BaseService implements PacienteService 
                 genericMapper.toListPacienteResponse(listaPaciente));
     }
 
+    @Override
+    public List<Paciente> listaNativa() {
+        return pacienteRepository.findAll();
+    }
+
     private Paciente findPaciente(Integer id) {
         Optional<Paciente> paciente = pacienteRepository.findById(id);
         return (paciente.isPresent()) ? paciente.get() : paciente.orElseThrow(

@@ -1,5 +1,6 @@
 package com.clinica.app.controller;
 
+import com.clinica.app.entity.Consulta;
 import com.clinica.app.service.ConsultaService;
 import com.clinica.dto.consulta.ConsultaRequest;
 import com.clinica.dto.consulta.ConsultaResponse;
@@ -35,6 +36,15 @@ public class ConsultaController {
         return consultaService.delete(id);
     }
 
+    @GetMapping("/lista-nativa")
+    public List<Consulta> listaNativa() {
+        return consultaService.consultaNativa();
+    }
+
+    @PostMapping("/save-nativo")
+    public void saveNativo(@RequestBody Consulta consultaRequest) {
+        consultaService.guardar(consultaRequest);
+    }
 
     // DTO
 //    @GetMapping("/findall-1")
