@@ -34,7 +34,7 @@ spring:
       # DDL - UPDATE: Actualiza los campos de la tabla (no las elimina)
       # DDL - VALIDATE: Valida la clase con las tablas (campos, primary key, etc), si no es igual da error.
       # DDL - NONE: Ninguna accion.
-      ddl-auto: none
+      ddl-auto: validate
     show-sql: true
   banner:
     location: /load/banner.txt\
